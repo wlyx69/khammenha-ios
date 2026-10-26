@@ -11,7 +11,7 @@ permissions:
 jobs:
   build:
     name: Build on macOS
-    runs-on: macos-14
+    runs-on: macos-15
     timeout-minutes: 40
     steps:
       - name: Checkout
@@ -24,7 +24,10 @@ jobs:
         run: brew install xcodegen
 
       - name: Generate Xcode project
-        run: xcodegen generate
+        run: |
+          xcodegen generate
+          grep -m1 objectVersion Khammenha.xcodeproj/project.pbxproj
+          xcodebuild -list -project Khammenha.xcodeproj
 
       - name: Build without code signing
         run: |
