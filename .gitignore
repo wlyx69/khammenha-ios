@@ -1,6 +1,5 @@
 .DS_Store
 build/
-dist/
 *.xcodeproj
 *.xcworkspace
 xcuserdata/
