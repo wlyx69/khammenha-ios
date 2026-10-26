@@ -3,6 +3,9 @@ name: Build unsigned IPA
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'dist/**'
+      - 'README.md'
   workflow_dispatch:
 
 permissions:
@@ -60,6 +63,18 @@ jobs:
           name: Khammenha-unsigned-ipa
           path: dist/Khammenha-unsigned.ipa
           if-no-files-found: error
+
+      - name: Commit IPA to dist/ (stable direct link)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git checkout -B main origin/main
+          cp dist/Khammenha-unsigned.ipa /tmp/Khammenha-unsigned.ipa
+          mkdir -p dist && cp /tmp/Khammenha-unsigned.ipa dist/Khammenha-unsigned.ipa
+          git add dist/Khammenha-unsigned.ipa
+          git -c commit.gpgsign=false commit -m "Update dist IPA (build ${{ github.run_number }}) [skip ci]" || echo "no change"
+          git push origin main
 
       - name: Publish release
         env:

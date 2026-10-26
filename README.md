@@ -13,6 +13,14 @@
 
 لتشغيل البناء يدويًا بدون رفع: Actions → Build unsigned IPA → Run workflow.
 
+## رابط مباشر ثابت للـ IPA (لمتاجر التوقيع)
+
+بعض متاجر وخدمات التوقيع تطلب رابطًا مباشرًا ينتهي بـ `.ipa` بدون تحويلات. هذا الرابط ثابت ويتحدث تلقائيًا مع كل بناء:
+
+`https://raw.githubusercontent.com/wlyx69/khammenha-ios/main/dist/Khammenha-unsigned.ipa`
+
+(رابط Releases يحوّل إلى خادم آخر، وبعض الخدمات ما تقبله.)
+
 ## تحديث اللعبة
 
 استبدل `App/Resources/www/index.html` بالنسخة الجديدة وارفع. كل شيء (الكود والكلمات) داخل هذا الملف الواحد.
