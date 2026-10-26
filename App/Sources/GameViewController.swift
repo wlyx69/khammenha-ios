@@ -3,6 +3,7 @@ import WebKit
 
 final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     private var webView: WKWebView!
+    private var reminderBridge: ReminderBridge?
 
     override var prefersStatusBarHidden: Bool { false }
     override var preferredStatusBarStyle: UIStatusBarStyle { .default }
@@ -19,6 +20,9 @@ final class GameViewController: UIViewController, WKNavigationDelegate, WKUIDele
         configuration.defaultWebpagePreferences = pagePreferences
 
         let webView = WKWebView(frame: view.bounds, configuration: configuration)
+        // Bridge for local reminders: window.webkit.messageHandlers.native.postMessage({...})
+        reminderBridge = ReminderBridge(webView: webView)
+        configuration.userContentController.add(reminderBridge!, name: ReminderBridge.handlerName)
         webView.navigationDelegate = self
         webView.uiDelegate = self
         webView.isOpaque = false

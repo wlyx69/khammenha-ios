@@ -1,7 +1,8 @@
 import UIKit
+import UserNotifications
 
 @main
-final class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication,
@@ -11,6 +12,13 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         window.rootViewController = GameViewController()
         window.makeKeyAndVisible()
         self.window = window
+        UNUserNotificationCenter.current().delegate = self
         return true
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .sound])
     }
 }
